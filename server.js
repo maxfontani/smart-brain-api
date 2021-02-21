@@ -11,7 +11,6 @@ import handleProfile from './controllers/profile.js'
 import image from './controllers/image.js'
 
 
-const __dirname = process.cwd()
 const app = express()
 const db = knex({
     client: 'pg',
@@ -24,7 +23,7 @@ const db = knex({
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(favicon(path.join(__dirname, '/favicon.ico')))
+app.use(favicon(path.join(rocess.env.PWD, '/favicon.ico')))
 
 app.get('/', (req,res) => {res.send('it is working')})
 app.post('/signin', (req,res) => handleSignin(req,res,db,bcrypt))
