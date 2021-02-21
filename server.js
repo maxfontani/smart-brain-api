@@ -23,7 +23,7 @@ const db = knex({
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(favicon(path.join(rocess.env.PWD, '/favicon.ico')))
+app.use(favicon(path.join(process.env.PWD, '/favicon.ico')))
 
 app.get('/', (req,res) => {res.send('it is working')})
 app.post('/signin', (req,res) => handleSignin(req,res,db,bcrypt))
