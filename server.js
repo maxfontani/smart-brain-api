@@ -19,24 +19,18 @@ const db = knex({
     }
 })
 
-const corsOptions = {
-    origin: 'http://localhost:3000/',
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    preflightContinue: false,
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-  }
-
-app.use(cors(corsOptions))
+app.use(cors())
+app.options('*', cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(favicon(path.join(process.env.PWD, '/favicon.ico')))
 
-app.get('/', (req,res) => {res.send('it is working')})
+app.get('/', (req,res) => {res.send('The Smart Brain App is running')})
 app.post('/signin', (req,res) => handleSignin(req,res,db,bcrypt))
 app.post('/register', (req,res) => handleRegister(req,res,db,bcrypt))
 app.get('/profile/:id', (req,res) => handleProfile(req,res,db))
 app.put('/image', (req,res) => image.handleImage(req,res,db))
 app.post('/imageurl', (req,res) => image.handleApiCall(req,res))
 
-
-app.listen(process.env.PORT || 4000, () => console.log(`App is running on port ${process.env.PORT}`))
+const PORT = process.env.PORT
+app.listen(PORT || 4000, () => console.log(`App is running on port ${PORT}`))
