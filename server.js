@@ -3,6 +3,7 @@ import bodyParser from 'body-parser'
 import bcrypt from 'bcryptjs'
 import cors from 'cors'
 import knex from 'knex'
+import favicon from 'serve-favicon'
 import handleRegister from './controllers/register.js'
 import handleSignin from './controllers/signin.js'
 import handleProfile from './controllers/profile.js'
@@ -19,7 +20,7 @@ const db = knex({
 
 app.use(cors())
 app.use(bodyParser.json())
-
+app.use(favicon('/favicon.ico'))
 
 app.get('/', (req,res) => {res.send('it is working')})
 app.post('/signin', (req,res) => handleSignin(req,res,db,bcrypt))
