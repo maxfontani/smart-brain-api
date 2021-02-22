@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "push all": "git push origin main; git push heroku main"
+    "push-all": "git push origin main; git push heroku main"
   },
   "keywords": [],
   "author": "",
