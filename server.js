@@ -3,8 +3,8 @@ import bodyParser from 'body-parser'
 import bcrypt from 'bcryptjs'
 import cors from 'cors'
 import knex from 'knex'
-import favicon from 'serve-favicon'
-import path from 'path'
+// import favicon from 'serve-favicon'
+// import path from 'path'
 import handleRegister from './controllers/register.js'
 import handleSignin from './controllers/signin.js'
 import handleProfile from './controllers/profile.js'
@@ -25,10 +25,10 @@ app.use(cors())
 app.options('*', cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(favicon(path.join(process.env.PWD, '/favicon.ico')))
+// app.use(favicon(path.join(process.env.PWD, '/favicon.ico')))
 
 app.get('/', (req,res) => {res.send('The Smart Brain App is running')})
-app.get('/favicon.ico', () => res.sendFile('./favicon.ico'))
+// app.get('/favicon.ico', () => res.send('HERE IS THE FAVICON'))
 app.post('/signin', (req,res) => handleSignin(req,res,db,bcrypt))
 app.post('/register', (req,res) => handleRegister(req,res,db,bcrypt))
 app.get('/profile/:id', (req,res) => handleProfile(req,res,db))
@@ -36,4 +36,4 @@ app.put('/image', (req,res) => image.handleImage(req,res,db))
 app.post('/imageurl', (req,res) => image.handleApiCall(req,res))
 
 const PORT = process.env.PORT
-app.listen(PORT || 4000, () => console.log(`App is running on port ${PORT}`))
+app.listen(PORT || 4000, () => console.log(`App is running on port ${PORT ? PORT : 4000}`))
