@@ -28,6 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(favicon(path.join(process.env.PWD, '/favicon.ico')))
 
 app.get('/', (req,res) => {res.send('The Smart Brain App is running')})
+app.get('/favicon.ico', () => res.sendFile('./favicon.ico'))
 app.post('/signin', (req,res) => handleSignin(req,res,db,bcrypt))
 app.post('/register', (req,res) => handleRegister(req,res,db,bcrypt))
 app.get('/profile/:id', (req,res) => handleProfile(req,res,db))
