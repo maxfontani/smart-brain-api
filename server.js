@@ -3,14 +3,12 @@ import bodyParser from 'body-parser'
 import bcrypt from 'bcryptjs'
 import cors from 'cors'
 import knex from 'knex'
-// import favicon from 'serve-favicon'
-// import path from 'path'
 import handleRegister from './controllers/register.js'
 import handleSignin from './controllers/signin.js'
 import handleProfile from './controllers/profile.js'
 import image from './controllers/image.js'
 
-process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 1
 
 const app = express()
 const db = knex({
@@ -25,10 +23,8 @@ app.use(cors())
 app.options('*', cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-// app.use(favicon(path.join(process.env.PWD, '/favicon.ico')))
 
 app.get('/', (req,res) => {res.send('The Smart Brain App is running')})
-// app.get('/favicon.ico', () => res.send('HERE IS THE FAVICON'))
 app.post('/signin', (req,res) => handleSignin(req,res,db,bcrypt))
 app.post('/register', (req,res) => handleRegister(req,res,db,bcrypt))
 app.get('/profile/:id', (req,res) => handleProfile(req,res,db))
